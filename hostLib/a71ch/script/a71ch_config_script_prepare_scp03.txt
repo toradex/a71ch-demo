@@ -1,0 +1,10 @@
+# #################################
+# Name: a71ch_config_script_prepare_scp03.txt
+# Revision 0.9
+# Purpose: Configure script to set-up SCP03
+# Pre-condition: SCP03 has not been set-up
+# #################################
+info status
+scp put -h 01 -k tstFiles/scp03KeyFile.txt
+scp auth -h 01 -k tstFiles/scp03KeyFile.txt
+info status

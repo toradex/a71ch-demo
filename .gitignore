@@ -51,30 +51,22 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# Eclipse specific
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
 
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-Debug/
-Release/
-.settings/
-.loadpath
-.recommenders
+# project specific
+doc/
+linux/*
+.vscode/
+!linux/Makefile_A71CH
+!linux/buildA71CH.sh
+!linux/packageA71chOpenSslEngine.sh
+toradex/certs/*
+toradex/files/*
+toradex/old/*
+toradex/a71chtdx
+!toradex/a71chtdx.c
 
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# Folders not used
-/hostLib/*
-/RemoteSystemsTempFiles
-
-
+!.keep

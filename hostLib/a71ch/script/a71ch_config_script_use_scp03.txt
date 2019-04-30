@@ -1,0 +1,22 @@
+# #################################
+# Name: a71ch_config_script_use_scp03.txt
+# Revision 0.9
+# Purpose: Example configure script
+# Pre-condition: SCP03 has been set-up with appropriate keys
+# #################################
+scp auth -h 01 -k tstFiles/scp03KeyFile.txt
+info status
+info device
+info cnt
+info pub
+info pair
+erase pair -x 0
+erase pair -x 1
+info pair
+set pair -x 0 -k keyfile_ecc_nist_256_0.pem # Ensure path to pem file is correct 
+set pair -x 1 -k keyfile_ecc_nist_256_1.pem # Ensure path to pem file is correct
+info pair
+info gp -h 0000 -n 32
+set gp -h 0280 -h FFEEDDCCBBAA99887766554433221100
+set gp -h 02B0 -h 00112233445566778899AABBCCDDEEFF
+info gp -h 0000 -n 32

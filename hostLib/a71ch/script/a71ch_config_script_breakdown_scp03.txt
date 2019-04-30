@@ -1,0 +1,17 @@
+# #################################
+# Name: a71ch_config_script_breakdown_scp03.txt
+# Revision 0.9
+# Purpose: Example configure script
+#     - First an SCP03 channel is established
+#     - The 'info all' command is issued (requires an active SCP03 channel in view of pre-conditions)
+#     - The SCP03 channel is torn down by issuing an applet select
+#     - Clear the SCP03 status host side
+#     - The 'info device' command is issued (can be issued in the clear, 'info all' would fail)
+# Pre-condition: SCP03 has been set-up with appropriate keys
+# #################################
+scp auth -h 01 -k tstFiles/scp03KeyFile.txt
+info all
+# Reselect device, as a consequence the SCP03 channel is torn down
+apdu -cmd 00A4040005613731636800 -sw 9000
+scp clear_host
+info device

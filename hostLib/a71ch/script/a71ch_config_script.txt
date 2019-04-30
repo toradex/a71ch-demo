@@ -1,0 +1,34 @@
+# #################################
+# Name: a71ch_config_script.txt
+# Revision 0.9
+# Purpose: Example configure script
+# Pre-condition: SCP03 has not been set-up
+# #################################
+info status
+info device
+info cnt
+info pub
+info pair
+erase pair -x 0
+erase pair -x 1
+info pair
+set pair -x 0 -k keyfile_ecc_nist_256_0.pem # Ensure path to pem file is correct 
+set pair -x 1 -k keyfile_ecc_nist_256_1.pem # Ensure path to pem file is correct
+info pair
+# Use a (correct) pem file with a 'one byte shorter' private key
+set pair -x 1 -k tstEccKeys/keyfile_ecc_nist_256_2_shortPrivKey.pem
+info pair
+apdu -cmd 8091000100 -sw 9000
+apdu -cmd 8096000004F0F1F2F300 -sw 9000 # Calculate SHA256 of "F0F1F2F3"
+apdu -cmd 80720000044137314348 -sw 9000 # Write 4 byte on address-offset 0000
+apdu -cmd 8071000002000400 -sw 9000 # Get the 4 byte just written (TODO: Fix bug in APDU spec)
+apdu -cmd 80710000010400 -sw 6A80 # Try to get the 4 byte just written (cmd is not correctly formatted, anticipate the error status returned)
+apdu -cmd 8095000800 -sw 9000 # Get 8 byte of random data
+info gp -h 0100 -n 4
+set gp -h 0100 -h FFEEDDCCBBAA99887766554433221100
+set gp -h 0130 -h 00112233445566778899AABBCCDDEEFF
+info gp -h 0100 -n 4
+info cnt
+set cnt -x 0 -h 00000001
+set cnt -x 1 -h 00000002
+info cnt
