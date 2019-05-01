@@ -116,11 +116,12 @@ class HttpRequestHandler(BaseHTTPRequestHandler):
             file = open(path, 'rb')
             content = file.read()
             file.close()
+            sha256 = SHA256.new(content)
         except:
             content = "File not available.".encode('utf-8')
             logging.error("Requested file \"%s\" is not available. Sending a file with content \"File not available.\"", filename)
+            sha256 = SHA256.new(str(random.randint(1,100)).encode('utf-8'))
 
-        sha256 = SHA256.new(content)
         logging.debug("SHA256 = %s", sha256.hexdigest())
         logging.debug("File size is: %s", str(len(content)))
         body = (("Filesize=" + str(len(content)) + "\nFilename=" + filename + "\nSHA256=" + sha256.hexdigest() + "\n").encode('utf-8') + content)
