@@ -260,9 +260,9 @@ int static a71chtdx_cert_verify_cb(int preverifyOk, X509_STORE_CTX *pX509CTX)
 }
 
 /* Wrapper function to write to specific file. */
-int static a71chtdx_file_append_wrapper(char* filename, char* fileContent, int contentBufferSize){
+int static a71chtdx_file_write_wrapper(char* filename, char* fileContent, int contentBufferSize){
     FILE *fp;
-    fp = fopen(filename,"ab");
+    fp = fopen(filename,"wb");
 
     if(fp == NULL)
     {
@@ -687,7 +687,7 @@ int a71chtdx_execute_controlled_download(char* pDestinationURL, int nDestination
     U16 clientCerDerLen = A71CHTDX_A71CH_MAX_DER_CERT_SIZE;
 
     /* Start */
-    PRINT_INFO("******** START OF A71CH-DEMO ********\n");
+    PRINT_INFO("******** START OF A71CH-DEMO-DOWNLOAD-UTILITY ********\n");
     a71chtdx_get_local_ip(localhost);
 
     PRINT_INFO("Setup the secure connection to %s.\n", pDestinationURL);
@@ -831,7 +831,7 @@ int a71chtdx_execute_controlled_download(char* pDestinationURL, int nDestination
     }
     free(writeBuffer);
 
-    readBufferSize = 89128960 * sizeof(char);
+    readBufferSize = 1048576 * sizeof(char); //1M
     readBuffer = (char*) malloc(readBufferSize);
     /* Get the authentication details in the answer of the server. */
     nRet = a71chtdx_ssl_read_wrapper(pSSLHandle, sockfd, readBuffer, readBufferSize, &readBytes, A71CHTDX_SSL_DEFAULT_TIMEOUT);
@@ -872,7 +872,7 @@ int a71chtdx_execute_controlled_download(char* pDestinationURL, int nDestination
     free(writeBuffer);
 
     /* Receive data from server, extract the required information and store the file on the host. */
-    readBufferSize = 89128960 * sizeof(char);
+    readBufferSize = 104857600 * sizeof(char); //100M
     readBuffer = (char*) malloc(readBufferSize);
     unsigned int filesize = 0;
     char* readCursor;
@@ -900,7 +900,6 @@ int a71chtdx_execute_controlled_download(char* pDestinationURL, int nDestination
     SHA256_Final(fileHashCalculated, &sha256);
     a71chtdx_convert_hex_to_char_array(fileHashCalculated, SHA256_DIGEST_LENGTH, fileHashCalculatedStr);
     fileHashCalculatedStr[64] = 0;
-    free(readBuffer);
 
     a71chtdx_convert_hex_to_char_array(fileHashReceived, fileHashReceivedLen, fileHashReceivedStr);
 
@@ -943,15 +942,23 @@ int a71chtdx_execute_controlled_download(char* pDestinationURL, int nDestination
 
     if(integrityStatus == A71CHTDX_DOWNLOAD_INTEGRITY_PROVEN){
         PRINT_DEBUG("Write data to file.\n");
-        nRet = a71chtdx_file_append_wrapper(targetFilename, readCursor, filesize);
+        nRet = a71chtdx_file_write_wrapper(targetFilename, readCursor, filesize);
         if (nRet == A71CHTDX_FILE_WRITE_OK){
             PRINT_INFO("Wrote content from server to the file \"%s\".\n", targetFilename);
             PRINT_INFO("Secure download successful!\n");
+            nRet = A71CHTDX_STATUS_OK;
         }
     }
+    else{
+        if(strncmp(readCursor, "File not available.", sizeof("File not available."))==0){
+            PRINT_ERROR("File \"%s\" is not available on the server.\n", targetFilename);
+        }
+        nRet = A71CHTDX_DOWNLOAD_INTEGRITY_NOT_PROVEN;
+    }
+    free(readBuffer);
 
     leaving:
-    PRINT_INFO("******** END OF A71CH-DEMO ********\n");
+    PRINT_INFO("******** END OF A71CH-DEMO-DOWNLOAD-UTILITY ********\n");
     return (nRet == A71CHTDX_STATUS_OK) ? OK_STATUS : FAILURE_STATUS;
 }
 
