@@ -1,8 +1,8 @@
-# A71CH Secure Module Demo
+# A71CH Secure Element Demo
 
 This demonstration is used for the Security Workshop on the 21th May 2019 in Munich.
 
-- Use of the NxP A71CH Secure Module
+- Use of the NxP A71CH Secure Element
 - Combination with the Colibri iMX6ULL
 - Combination with Torizon
 
@@ -83,7 +83,7 @@ Copy the `a71chtdx` and the `update.sh` to the target.
 
 ## Running the demo
 
-The demo consists of a server and a client part. If you did the [preperation](##preperation), you should be able to run the demo now.
+The demo consists of a server and a client part. If you did the [preperation](#preperation), you should be able to run the demo now.
 
 ### Starting the server part
 
