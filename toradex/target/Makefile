@@ -1,27 +1,30 @@
-# Invocation
-#  make -f Makefile_a71chTdx platf=imx
+#****************************************************************************
 #
-#  2018-09-07: Modified to link against pre-installed libraries in /usr/local/lib
+# Copyright (C) 2019 Toradex AG
+# Contact: https://www.toradex.com/locations
 #
-#  PRECONDITION
-#         A71CH shared library (libA71CH_i2c.so.1.4.0) HLSE shared library (libHLSE_A71CH_i2c.so.1.0.0)
-#         and associated header files is installed in a system standard location
-#           (1) On iMX6UL native: e.g. /usr/local/lib and /usr/local/include respectively
-#           (2) When cross-compiling, build the shared libraries with make/cmake. 
-#               Install in the cross-compilation system root file system as follows:
+# This file is part of the Toradex of the A71CH workshop demo.
 #
-#               make
-#               make DESTDIR=$SDKTARGETSYSROOT install
-#               (echo $DESTDIR -> /opt/fsl-imx-fb/4.9.11-1.0.0/sysroots/cortexa7hf-neon-poky-linux-gnueabi)
+# BSD License Usage
+# Alternatively, you may use this file under the terms of the BSD license
+# as follows:
 #
-#  NOTE-1 
-#         When using cross compilation (and facing issues with linking to Engine) invoke with additional parameter 
-#           make -f Makefile_a71chTdx platf=imx
-# 
-#  NOTE-2
-#         Ensure the OpenSSL engine is linked against the same share library as the application
+# "Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#   * Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#   * Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in
+#     the documentation and/or other materials provided with the
+#     distribution.
+#   * Neither the name of Toradex Ag nor the names of its
+#     contributors may be used to endorse or promote products derived
+#     from this software without specific prior written permission.
 #
-TARGET      = a71chtdx 
+#****************************************************************************/
+
+TARGET      = a71chtdx
 OBJECTS     = a71chtdx.o
 
 DFLAGS = -DI2C
@@ -36,7 +39,7 @@ CINCS = -I../hostLib/libCommon/infra \
 	-I../hostLib/embSeEngine/inc \
 	-I../hostLib/api/inc \
 	-I../hostLib/libCommon/scp \
-	-I../hostLib/libCommon/smCom 
+	-I../hostLib/libCommon/smCom
 
 CFLAGS    += -Wall -DLINUX -DSCP_MODE=NO_C_MAC_NO_C_ENC_NO_R_MAC_NO_R_ENC -O0 \
                 -D_REENTRANT -DUSE_OPENSSL \
