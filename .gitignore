@@ -66,8 +66,8 @@ linux/*
 toradex/certs/*
 toradex/files/*
 toradex/old/*
-toradex/a71chtdx
-!toradex/a71chtdx.c
+toradex/target/a71chtdx
+!toradex/target/a71chtdx.c
 *.cer
 *.csr
 *.pem
