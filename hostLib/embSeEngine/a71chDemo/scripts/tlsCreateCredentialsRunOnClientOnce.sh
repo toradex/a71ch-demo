@@ -32,14 +32,14 @@ if [ ! -e ${rootca_key} ]; then
 	openssl ec -in ${rootca_key} -text -noout
 	echo ">> Creating new - selfsigned - RootCA (${rootca_cer}) certificate"
 	openssl req -x509 -new -nodes -key ${rootca_key} \
-	  -subj "/C=BE/ST=VlaamsBrabant/L=Leuven/O=NXP-Demo-CA/OU=Demo-Unit/CN=demoCA/emailAddress=demoCA@nxp" \
+	  -subj "/C=CH/S=Lucerne/L=Horw/O=Toradex/OU=Demo-Unit/CN=demoCA/emailAddress=demoCA@toradex" \
 	  -days 2800 -out ${rootca_cer}
 	openssl x509 -in ${rootca_cer} -text -noout
 else
 	if [ ! -e ${rootca_cer} ]; then
 	    echo ">> Creating new - selfsigned - RootCA (${rootca_cer}) certificate"
 		openssl req -x509 -new -nodes -key ${rootca_key} \
-			-subj "/C=BE/ST=VlaamsBrabant/L=Leuven/O=NXP-Demo-CA/OU=Demo-Unit/CN=demoCA/emailAddress=demoCA@nxp" \
+			-subj "/C=CH/S=Lucerne/L=Horw/O=Toradex/OU=Demo-Unit/CN=demoCA/emailAddress=demoCA@toradex" \
 			-days 2800 -out ${rootca_cer}
 		openssl x509 -in ${rootca_cer} -text -noout			
 	else
@@ -61,7 +61,7 @@ echo ">> Creating client key with public key only; typically used by verifier: $
 openssl ec -in ${client_key} -pubout -out ${client_key_pub}
 
 echo ">> Now create CSR"
-openssl req -new -key ${client_key} -subj "/C=BE/O=NXPDemo/OU=Unit/CN=ECC-demo-client" -out ${client_csr}
+openssl req -new -key ${client_key} -subj "/C=CH/O=Toradex/OU=Unit/CN=Torizon-demo-client" -out ${client_csr}
 openssl req -in ${client_csr} -text -noout
 
 
@@ -94,13 +94,13 @@ if [ ! -e ${server_key}  ]; then
 	openssl ecparam -in ${ecc_param_pem} -genkey -noout -out ${server_key}
 	openssl ec -in ${server_key} -text -noout
 
-	openssl req -new -key ${server_key} -subj "/C=BE/O=NXPDemo/OU=Unit/CN=ECC-demo-server" -out ${server_csr}
+	openssl req -new -key ${server_key} -subj "/C=CH/O=Toradex/OU=Unit/CN=Torizon-demo-server" -out ${server_csr}
 else
 	echo ">> ${server_key} already exists"
 fi
 
 echo ">> Create CSR anew"
-openssl req -new -key ${server_key} -subj "/C=BE/O=NXPDemo/OU=Unit/CN=ECC-demo-server" -out ${server_csr}
+openssl req -new -key ${server_key} -subj "/C=CH/O=Toradex/OU=Unit/CN=Torizon-demo-server" -out ${server_csr}
 openssl req -in ${server_csr} -text -noout
 
 # Always create a CA signed server certificate

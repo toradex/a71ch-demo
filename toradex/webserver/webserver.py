@@ -36,6 +36,9 @@ from binascii import unhexlify
 
 class HttpRequestHandler(BaseHTTPRequestHandler):
 
+    _root_ca = '../certs/tls_rootca.cer'
+    _server_cert = '../certs/tls_server.cer'
+    _server_key = '../certs/tls_server_key.pem'
     _client_public_key = "../certs/tls_client_key_pub.pem" #static client public key
     _files_location = "../files/"
     protocol_version = 'HTTP/1.1' #Required to hold the session to the clients
@@ -179,7 +182,7 @@ def run(server_class=HTTPServer, handler_class=HttpRequestHandler, port=8080):
     coloredlogs.install(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True,ca_certs='../certs/tls_rootca.cer',certfile='../certs/tls_server.cer',keyfile='../certs/tls_server_key.pem')
+    httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True,ca_certs=HttpRequestHandler._root_ca, certfile=HttpRequestHandler._server_cert, keyfile=HttpRequestHandler._server_key)
     logging.info('\n\n\n************* A71CH Toradex Demo Server *************\n\n\n')
     logging.info('HTTP server is ready now and listening for the first request...')
 

@@ -68,5 +68,9 @@ toradex/files/*
 toradex/old/*
 toradex/a71chtdx
 !toradex/a71chtdx.c
+*.cer
+*.csr
+*.pem
+*.srl
 
 !.keep

@@ -19,15 +19,15 @@ A71CH_PROVISIONING_SCRIPT="0.9"
 
 # ECC keys to be stored in A71CH
 # ------------------------------
-client_key="../ecc/tls_client_key.pem"
-client_key_ref="../eccRef/tls_client_key_ref.pem"
-client_key_pub="../ecc/tls_client_key_pub.pem" # Contains public key only
+client_key="eccKeys/tls_client_key.pem"
+client_key_ref="eccKeys/tls_client_key_ref.pem"
+client_key_pub="eccKeys/tls_client_key_pub.pem" # Contains public key only
 
 # Client certificate
-client_cer="../ecc/tls_client.cer"
+client_cer="eccKeys/tls_client.cer"
 
 # Ca certificate
-caCert="../ecc/tls_rootca.cer"
+caCert="eccKeys/tls_rootca.cer"
 
 # UTILITY FUNCTIONS
 # -----------------
@@ -106,7 +106,7 @@ if [ -z "$probeExec" ]; then
 	else
 		echo "Assume we run on Linux"
 		if [ "${ipPortVar}" = "" ]; then
-			probeExec="../../../../linux/a71chConfig_i2c_imx"
+			probeExec="configtool/a71chConfig_i2c_imx"
 		else		
 			probeExec="../../../../linux/a71chConfig_socket_native ${ipPortVar}"			
 		fi
