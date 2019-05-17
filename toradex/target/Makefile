@@ -30,16 +30,16 @@ OBJECTS     = a71chtdx.o
 DFLAGS = -DI2C
 RM = rm
 
-LDFLAGS	+= -L../hostLib/build/a71ch -L../hostLib/build/api/ -L../linux -le2a71chi2c -lA71CH_i2c -lHLSE_A71CH_i2c -ldl -lssl -lcrypto
+LDFLAGS	+= -L../../hostLib/build/a71ch -L../../hostLib/build/api/ -L../../linux -le2a71chi2c -lA71CH_i2c -lHLSE_A71CH_i2c -ldl -lssl -lcrypto
 
-CINCS = -I../hostLib/libCommon/infra \
-	-I../hostLib/build/a71ch \
-	-I../hostLib/build/a71ch \
- 	-I../hostLib/a71ch/inc \
-	-I../hostLib/embSeEngine/inc \
-	-I../hostLib/api/inc \
-	-I../hostLib/libCommon/scp \
-	-I../hostLib/libCommon/smCom
+CINCS = -I../../hostLib/libCommon/infra \
+	-I../../hostLib/build/a71ch \
+	-I../../hostLib/build/a71ch \
+ 	-I../../hostLib/a71ch/inc \
+	-I../../hostLib/embSeEngine/inc \
+	-I../../hostLib/api/inc \
+	-I../../hostLib/libCommon/scp \
+	-I../../hostLib/libCommon/smCom
 
 CFLAGS    += -Wall -DLINUX -DSCP_MODE=NO_C_MAC_NO_C_ENC_NO_R_MAC_NO_R_ENC -O0 \
                 -D_REENTRANT -DUSE_OPENSSL \
