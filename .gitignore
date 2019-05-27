@@ -61,9 +61,6 @@ doc/*
 linux/*
 hostLib/*
 .vscode/
-!linux/Makefile_A71CH
-!linux/buildA71CH.sh
-!linux/packageA71chOpenSslEngine.sh
 toradex/certs/*
 toradex/files/*
 toradex/old/*

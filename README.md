@@ -1,6 +1,6 @@
 # A71CH Secure Element Demo
 
-This demonstration is used for the Security Workshop on the 21th May 2019 in Munich.
+This is a demonstration of the A71CH Secure Element of NxP in combination with Toradex's Colibri iMX6ULL and Torizon. This demonstration includes a secure client - server communication, including authentication of the client, for a secure and integer file download. The given use case shows how a docker container can be exchanged with a file from a server, using implemented secure file download.
 
 - Use of the NxP A71CH Secure Element
 - Combination with the Colibri iMX6ULL
@@ -25,6 +25,10 @@ When will the update fail?
 - If the import of the docker image failed
 
 ## Preperation
+
+### Download of the NXP Host Software Package
+
+Go to NXP's A71CH Secure Element product page and download the Host Software Package from "Tools & Software". Distribute the files of the corresponding folders in the related folders in your local repository (doc, hostLib and linux).
 
 ### Building of the libraries and the A71CH tools
 
