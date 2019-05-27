@@ -1,8 +1,8 @@
 # A71CH Secure Element Demo
 
-This is a demonstration of the A71CH Secure Element of NxP in combination with Toradex's Colibri iMX6ULL and Torizon. This demonstration includes a secure client - server communication, including authentication of the client, for a secure and integer file download. The given use case shows how a docker container can be exchanged with a file from a server, using implemented secure file download.
+This is a demonstration of the A71CH Secure Element of NXP in combination with Toradex's Colibri iMX6ULL and Torizon. This demonstration includes a secure client - server communication, including authentication of the client, for a secure and integer file download. The given use case shows how a docker container can be exchanged with a file from a server, using implemented secure file download.
 
-- Use of the NxP A71CH Secure Element
+- Use of the NXP A71CH Secure Element
 - Combination with the Colibri iMX6ULL
 - Combination with Torizon
 
@@ -42,7 +42,7 @@ Third we want to build the specific OpenSSL engine with the follwing command: `m
 
 ### Creating the certificates
 
-NxP provides a script in their host library to the A71CH Secure Element module. You can either edit the script and change the properties of the X.509 certificate which should be generated or take the default values and run it directly. The script is located under `hostLib/embSeEngine/a71chDemo/scripts/tlsCreateCredentialsRunOnClientOnce.sh`
+NXP provides a script in their host library to the A71CH Secure Element module. You can either edit the script and change the properties of the X.509 certificate which should be generated or take the default values and run it directly. The script is located under `hostLib/embSeEngine/a71chDemo/scripts/tlsCreateCredentialsRunOnClientOnce.sh`
 
 After creating the certificates, you need to copy them to the proper location.  
 Following files from `hostLib/embSeEngine/a71chDemo/ecc` need to be copied to `toradex/certs/`:
@@ -63,7 +63,7 @@ Following files from `hostLib/embSeEngine/a71chDemo/ecc` need to be copied to th
 
 For the provisioning of the A71CH Secure Element, the configuration application (`a71chConfig_i2c_imx`) which we compiled in chapter [Building of the libraries and the A71CH tools](#building-of-the-libraries-and-the-a71ch-tools) is required. Copy this tool to the target module.
 
-NxP provides a script to do the provisioning of the A71CH Secure Element. Copy the script located under `hostLib/embSeEngine/a71chDemo/scripts/tlsPrepareClient.sh` to the target module. Check the references to the cert-files in the shell-script and change them to whereever you stored your cert-files. The path of `client_key_ref` points to the location where the reference key should be stored in future and the file itself does not exist yet (will be created with the provisioning). Please also check the location of the `probeExec` which should point to the copied `a71chConfig_i2c_imx`.
+NXP provides a script to do the provisioning of the A71CH Secure Element. Copy the script located under `hostLib/embSeEngine/a71chDemo/scripts/tlsPrepareClient.sh` to the target module. Check the references to the cert-files in the shell-script and change them to whereever you stored your cert-files. The path of `client_key_ref` points to the location where the reference key should be stored in future and the file itself does not exist yet (will be created with the provisioning). Please also check the location of the `probeExec` which should point to the copied `a71chConfig_i2c_imx`.
 
 For the provisioning of the A71CH Secure Element, you should connect the A71CH properly and ensure that the module is in Debug Mode. If the module is not in debug mode, you could use the config-utility (Chapter XX) to configure it. If everything is okay, run the script.
 
