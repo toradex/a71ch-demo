@@ -57,8 +57,9 @@ __pycache__/
 *$py.class
 
 # project specific
-doc/
+doc/*
 linux/*
+hostLib/*
 .vscode/
 !linux/Makefile_A71CH
 !linux/buildA71CH.sh
